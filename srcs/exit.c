@@ -6,15 +6,31 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:53:43 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/12 21:04:25 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/25 22:48:07 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-void	_err(void)
+void	_err(t_pipex *pipex)
 {
 	perror("pipex");
+	dealloc_pipex(pipex);
+	system("leaks pipex");
+	exit(EXIT_FAILURE);
+}
+
+void	__err_just(void)
+{
+	perror("pipex");
+	system("leaks pipex");
+	exit(EXIT_FAILURE);
+}
+
+void	__err_open(void)
+{
+	perror("pipex");
+	system("leaks pipex");
 	exit(EXIT_FAILURE);
 }
 
@@ -32,8 +48,9 @@ void	dealloc_pipex(t_pipex *pipex)
 		free(pipex->cmds[i]);
 	}
 	i = -1;
-	while (pipex->new_env[++i])
-		free(pipex->new_env[i]);
+	if (pipex->new_env)
+		while (pipex->new_env[++i])
+			free(pipex->new_env[i]);
 	free(pipex->cmds);
 	free(pipex->new_env);
 }

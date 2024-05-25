@@ -6,7 +6,7 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 20:27:17 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/12 21:10:49 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/25 22:53:19 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	create_doc(t_pipex *pipex)
 
 void	check_here_doc(t_pipex *pipex, char **av)
 {
-	if (!ft_strncmp("here_doc", av[1], ft_strlen(av[1])))
+	if (*(av[1]) && !ft_strncmp("here_doc", av[1], ft_strlen(av[1])))
 	{
 		pipex->doc_flag = 1;
 		pipex->limiter = av[2];
@@ -56,4 +56,3 @@ void	check_here_doc(t_pipex *pipex, char **av)
 	else
 		pipex->doc_flag = 0;
 }
-

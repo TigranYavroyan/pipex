@@ -6,7 +6,7 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:54:35 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/12 21:00:13 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:16:09 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	execute_proc(t_pipex *pipex, int *pips)
 		dup2(pipex->outfile, STDOUT_FILENO);
 	execve(pipex->cmds[pipex->cmds_index][0], pipex->cmds[pipex->cmds_index],
 		pipex->main_env);
-	dealloc_pipex(pipex);
-	_err();
+	_err(pipex);
 }
 
 void	execute(t_pipex *pipex)
@@ -46,10 +45,10 @@ void	execute(t_pipex *pipex)
 	while (i < pipex->cmds_count)
 	{
 		if (pipe(pips) < 0)
-			_err();
+			_err(pipex);
 		pid = fork();
 		if (pid < 0)
-			_err();
+			_err(pipex);
 		if (pid == 0)
 			execute_proc(pipex, pips);
 		++pipex->cmds_index;

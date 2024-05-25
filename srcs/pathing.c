@@ -6,7 +6,7 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:55:20 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/11 18:55:28 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/25 22:55:13 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,38 @@ char	*path_for_exec(char *current_cmd, char **new_env)
 	int		i;
 
 	i = -1;
+	path = ft_strdup(current_cmd);
+	if (!access(path, X_OK | F_OK))
+		return (path);
+	if (!new_env)
+		__err_just();
 	while (new_env[++i])
 	{
+		free(path);
 		tmp = ft_strjoin(new_env[i], "/");
 		path = ft_strjoin(tmp, current_cmd);
 		free(tmp);
 		if (!access(path, X_OK | F_OK))
 			return (path);
-		free(path);
 	}
+	free(path);
 	return (0);
 }
 
-int	access_cmd(t_pipex *pipex, int i)
+void	access_cmd(t_pipex *pipex, int i)
 {
 	char	*tmp;
+	int		flag;
 
-	if (ft_strchr(pipex->cmds[i][0], '/')
+	flag = 0;
+	if (!ft_strnstr(pipex->cmds[i][0], "/bin/", ft_strlen(pipex->cmds[i][0]))
+		&& ft_strchr(pipex->cmds[i][0], '/')
 		&& !access(pipex->cmds[i][0], X_OK | F_OK))
 	{
 		do_script(pipex, i);
-		return (0);
+		return ;
 	}
 	tmp = path_for_exec(pipex->cmds[i][0], pipex->new_env);
-	if (!tmp)
-		return (1);
 	free(pipex->cmds[i][0]);
 	pipex->cmds[i][0] = tmp;
-	return (0);
 }

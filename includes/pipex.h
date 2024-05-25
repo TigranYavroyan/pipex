@@ -6,7 +6,7 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:55:57 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/12 20:58:08 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/25 22:32:33 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,16 @@ void		check_here_doc(t_pipex *pipex, char **av);
 
 void		find_paths(t_pipex *pipex, char **env);
 char		*path_for_exec(char *current_cmd, char **new_env);
-int			access_cmd(t_pipex *pipex, int i);
-
+void		access_cmd(t_pipex *pipex, int i);
 //----------------------------- validate ----------------------------
 
 int			identify_cmd(t_pipex *pipex, char **av);
 
 //-------------------------------- exit -----------------------------
 
-void		_err(void);
+void		__err_just(void);
+void		__err_open(void);
+void		_err(t_pipex *pipex);
 void		dealloc_pipex(t_pipex *pipex);
 
 //--------------------------------- here_doc ------------------------
