@@ -6,28 +6,28 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 20:27:17 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/25 22:53:19 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/26 16:25:01 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-static int	ft_strncmp_pip(const char *s1, const char *s2, size_t n)
+static int	ft_strncmp_pip(char *s1, char *s2, size_t n)
 {
-	size_t	tmp;
+	// size_t	tmp;
+	int		i;
 
-	if (n != ft_strlen(s1) - 1)
-		return (1);
-	tmp = n - 1;
-	while (*s1 && *s2 && tmp)
+	i = 0;
+	// tmp = n - 1;
+	while (s1[i] && s2[i])
 	{
-		if (*s1 != *s2)
+		if (s1[i] != s2[i])
 			break ;
-		++s1;
-		++s2;
-		--tmp;
+		++i;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	if (i == (int)n && (!s1[i] || s1[i] == '\n'))
+		return (0);
+	return (1);
 }
 
 void	create_doc(t_pipex *pipex)
@@ -35,8 +35,9 @@ void	create_doc(t_pipex *pipex)
 	char	*input_line;
 
 	input_line = get_next_line(STDIN_FILENO);
-	while ((*input_line == '\n' && pipex->limiter) || ft_strncmp_pip(input_line,
-			pipex->limiter, ft_strlen(pipex->limiter)))
+	while (input_line && ((*input_line == '\n' && pipex->limiter)
+			|| ft_strncmp_pip(input_line, pipex->limiter,
+				ft_strlen(pipex->limiter))))
 	{
 		ft_putstr_fd(input_line, pipex->infile);
 		free(input_line);

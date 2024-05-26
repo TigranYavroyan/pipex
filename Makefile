@@ -7,12 +7,12 @@ OBJS = $(patsubst $(SRCSPATH)%.c,$(SRCSPATH)%.o,$(SRCS))
 LIBFT = $(LIBFTPATH)*.o
 
 CC = cc
-CFLAGS = -Wall -Wextra  -c $(foreach H,$(INCPATH),-I$(H))
-#-Werror
+CFLAGS = -Wall -Wextra -Werror -c $(foreach H,$(INCPATH),-I$(H))
+#
 all : $(NAME)
 
 $(NAME) : $(LIBFT) $(OBJS)
-	$(CC) $(LIBFT) $(OBJS) -o $(NAME)
+	$(CC) -fsanitize=address -g $(LIBFT) $(OBJS) -o $(NAME)
 #
 $(LIBFT) :
 	make -C $(LIBFTPATH) all

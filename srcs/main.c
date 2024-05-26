@@ -6,7 +6,7 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:01:18 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/25 22:54:21 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/26 16:04:06 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ int	t_main(int ac, char **av, char **env)
 int	main(int ac, char **av, char **env)
 {
 	t_main(ac, av, env);
-	system("leaks pipex");
+	// system("leaks pipex");
 }

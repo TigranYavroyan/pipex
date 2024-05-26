@@ -6,7 +6,7 @@
 /*   By: tyavroya <tyavroya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:53:43 by tyavroya          #+#    #+#             */
-/*   Updated: 2024/05/25 22:48:07 by tyavroya         ###   ########.fr       */
+/*   Updated: 2024/05/26 16:04:01 by tyavroya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ void	_err(t_pipex *pipex)
 {
 	perror("pipex");
 	dealloc_pipex(pipex);
-	system("leaks pipex");
+	// system("leaks pipex");
 	exit(EXIT_FAILURE);
 }
 
 void	__err_just(void)
 {
 	perror("pipex");
-	system("leaks pipex");
+	// system("leaks pipex");
 	exit(EXIT_FAILURE);
 }
 
 void	__err_open(void)
 {
 	perror("pipex");
-	system("leaks pipex");
+	// system("leaks pipex");
 	exit(EXIT_FAILURE);
 }
 
